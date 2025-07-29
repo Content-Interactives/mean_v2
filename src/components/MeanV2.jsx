@@ -13,6 +13,9 @@ const MeanV2 = () => {
 	const [numbers, setNumbers] = useState([]);
 	const [error, setError] = useState('');
 	const [step, setStep] = useState('input'); // 'input', 'calculating', 'summing'
+	const [flexiAnimationComplete, setFlexiAnimationComplete] = useState(false);
+	const [startSumming, setStartSumming] = useState(false);
+	const [hideCommas, setHideCommas] = useState(false);
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
@@ -57,14 +60,21 @@ const MeanV2 = () => {
 		}, 300); // Wait for animations to finish
 	};
 
-	const [flexiAnimationComplete, setFlexiAnimationComplete] = useState(false);
-
 	const handleReset = () => {
 		setInputValue('');
 		setNumbers([]);
 		setError('');
 		setStep('input');
 		setFlexiAnimationComplete(false);
+		setStartSumming(false);
+		setHideCommas(false);
+	};
+
+	const handleAddNumbers = () => {
+		setStartSumming(true);
+		setTimeout(() => {
+			setHideCommas(true);
+		}, 500); // match translate up animation
 	};
 
 	return (
@@ -91,9 +101,18 @@ const MeanV2 = () => {
 						</div>
 					)}
 					{step === 'summing' && (
-						<div className="text-center grow-in-animation relative top-[170px]">
+						<div 
+							className={`text-center grow-in-animation relative top-[170px] ${startSumming ? 'translate-up-animation' : ''}`}
+						>
 							<p className="text-2xl font-medium text-gray-800">
-								{numbers.join(' , ')}
+								{numbers.map((num, index) => (
+									<span key={index}>
+										<span>{num}</span>
+										{index < numbers.length - 1 && (
+											<span className={hideCommas ? 'fade-out-animation' : ''}> , </span>
+										)}
+									</span>
+								))}
 							</p>
 						</div>
 					)}
@@ -134,7 +153,7 @@ const MeanV2 = () => {
 					<div 
 						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
 					>
-						<GlowButton>
+						<GlowButton onClick={handleAddNumbers}>
 							<p className="whitespace-nowrap">Add Numbers</p>
 						</GlowButton>
 					</div>

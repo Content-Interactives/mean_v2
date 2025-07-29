@@ -143,3 +143,12 @@
 	animation: fadeOutAnimation 0.3s ease-in-out forwards;
 }
 
+@keyframes translateUpAnimation {
+	from { transform: translateY(0); }
+	to { transform: translateY(-120px); }
+}
+
+.translate-up-animation {
+	animation: translateUpAnimation 0.5s ease-in-out forwards;
+}
+
