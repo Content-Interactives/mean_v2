@@ -1,5 +1,5 @@
 import React from 'react';
-import FlexiWave from '../../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
+import FlexiWave from '../../../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
 import '../reused-animations/fade.css';
 
 export function FlexiText({ 
@@ -10,6 +10,7 @@ export function FlexiText({
     showBubble = true,
     bubbleClassName = "",
     containerClassName = "",
+    zIndex = 3,
     ...props 
 }) {
     return (
@@ -36,7 +37,6 @@ export function FlexiText({
                         bottom: 0;
                         display: flex;
                         align-items: flex-end;
-                        z-index: 3;
                     }
                     
                     .speech-bubble {
@@ -89,7 +89,11 @@ export function FlexiText({
                 `}
             </style>
             
-            <div className={`flexi-wave-bubble-container ${containerClassName} ${className || ''}`} {...props}>
+            <div 
+                className={`flexi-wave-bubble-container ${containerClassName} ${className || ''}`} 
+                style={{ zIndex }}
+                {...props}
+            >
                 <img 
                     src={flexiImage} 
                     alt={flexiAlt} 

@@ -43,7 +43,7 @@ export function Container({
 			<div className="p-4">
 				<div className="flex justify-between items-center mb-4">
 					<h2 
-						className="text-sm font-medium select-none"
+						className="text-sm font-bold select-none"
 						style={{ color: titleColor }}
 					>
 						{text}
