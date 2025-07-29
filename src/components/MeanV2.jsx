@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container } from './ui/reused-ui/Container';
 import { Input } from './ui/reused-ui/Input';
 import { GlowButton } from './ui/reused-ui/GlowButton';
 import { FlexiText } from './ui/reused-ui/FlexiText';
 import './ui/reused-animations/fade.css';
 import './ui/reused-animations/scale.css';
+import FlexiWave from '../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
+import FlexiConfident from '../assets/All Flexi Poses/SVG/Flexi_Confident.svg';
 
 const MeanV2 = () => {
 	const [inputValue, setInputValue] = useState('');
 	const [numbers, setNumbers] = useState([]);
 	const [error, setError] = useState('');
-	const [showCalculateButton, setShowCalculateButton] = useState(true);
-	const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-	const [showNumbers, setShowNumbers] = useState(false);
+	const [step, setStep] = useState('input'); // 'input', 'calculating', 'summing'
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
@@ -47,21 +47,24 @@ const MeanV2 = () => {
 		}
 
 		setNumbers(parsedNumbers);
-		setIsAnimatingOut(true);
+		setStep('calculating');
 
 		setTimeout(() => {
-			setShowCalculateButton(false);
-			setShowNumbers(true);
-		}, 500); // Wait for shrink animation to finish
+			setStep('summing');
+			setTimeout(() => {
+				setFlexiAnimationComplete(true);
+			}, 500); // match fade-in animation
+		}, 300); // Wait for animations to finish
 	};
+
+	const [flexiAnimationComplete, setFlexiAnimationComplete] = useState(false);
 
 	const handleReset = () => {
 		setInputValue('');
 		setNumbers([]);
 		setError('');
-		setShowCalculateButton(true);
-		setShowNumbers(false);
-		setIsAnimatingOut(false);
+		setStep('input');
+		setFlexiAnimationComplete(false);
 	};
 
 	return (
@@ -75,18 +78,19 @@ const MeanV2 = () => {
 		>
 			<div className="p-4 h-full flex flex-col">
                 <div className="flex-grow flex flex-col items-center justify-center">
-                    {showCalculateButton && (
-						<div className={`w-full max-w-xs relative top-[150px] ${isAnimatingOut ? 'shrink-out-animation' : ''}`}>
+                    {step !== 'summing' && (
+						<div className={`w-full max-w-xs relative top-[150px] ${step === 'calculating' ? 'shrink-out-animation' : ''}`}>
 							<Input
 								value={inputValue}
 								onChange={handleInputChange}
 								placeholder="Enter 2-6 numbers (1-100 each)"
 								error={error}
-								disabled={isAnimatingOut}
+								disabled={step === 'calculating'}
+								focusColor="#339D6A"
 							/>
 						</div>
 					)}
-					{showNumbers && (
+					{step === 'summing' && (
 						<div className="text-center grow-in-animation relative top-[170px]">
 							<p className="text-2xl font-medium text-gray-800">
 								{numbers.join(' , ')}
@@ -95,20 +99,46 @@ const MeanV2 = () => {
 					)}
                 </div>
 
-                <div className="flex justify-end">
-                    {showCalculateButton && (
+                <div className={`flex justify-end ${step === 'calculating' ? 'shrink-out-animation' : ''}`}>
+                    {step === 'input' && (
 						<GlowButton 
 							onClick={handleCalculate}
-							className={isAnimatingOut ? 'shrink-out-animation' : ''}
 							autoShrinkOnClick={false}
 						>
                         	Calculate Mean
                     	</GlowButton>
 					)}
                 </div>
-				<FlexiText zIndex={1}>
-					Enter some numbers to find the mean
-				</FlexiText>
+
+				<div 
+					className={`
+						${step === 'calculating' ? 'fast-fade-out-animation' : ''}
+						${step === 'summing' ? 'hidden' : ''}
+					`}
+				>
+					{step !== 'summing' && (
+						<FlexiText zIndex={1} flexiImage={FlexiWave}>
+							Enter some numbers to find the mean
+						</FlexiText>
+					)}
+				</div>
+				
+				{step === 'summing' && (
+					<>
+						<FlexiText zIndex={1} flexiImage={FlexiConfident} className="fade-in-up-animation">
+							Great, now we sum all the numbers first
+						</FlexiText>
+					</>
+				)}
+				{flexiAnimationComplete && (
+					<div 
+						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
+					>
+						<GlowButton>
+							<p className="whitespace-nowrap">Add Numbers</p>
+						</GlowButton>
+					</div>
+				)}
 			</div>
 		</Container>
 	)

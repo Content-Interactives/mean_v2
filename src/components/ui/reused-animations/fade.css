@@ -139,3 +139,7 @@
     animation: fadeOutAnimation 0.5s ease-in-out forwards;
 }
 
+.fast-fade-out-animation {
+	animation: fadeOutAnimation 0.3s ease-in-out forwards;
+}
+
