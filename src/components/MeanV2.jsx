@@ -5,7 +5,7 @@ const MeanV2 = () => {
 
 
 	return (
-        <div></div>
+        <div>test</div>
 )
 };
 
