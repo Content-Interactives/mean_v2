@@ -24,6 +24,8 @@ const MeanV2 = () => {
 	const [moveSecondCopyToCenter, setMoveSecondCopyToCenter] = useState(false);
 	const [secondNumberPosition, setSecondNumberPosition] = useState({ x: 0, y: 0 });
 	const [greyOutSecondNumber, setGreyOutSecondNumber] = useState(false);
+	const [fadeOutCopies, setFadeOutCopies] = useState(false);
+	const [showSum, setShowSum] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -87,6 +89,8 @@ const MeanV2 = () => {
 		setMoveSecondCopyToCenter(false);
 		setSecondNumberPosition({ x: 0, y: 0 });
 		setGreyOutSecondNumber(false);
+		setFadeOutCopies(false);
+		setShowSum(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -107,6 +111,13 @@ const MeanV2 = () => {
 						setTimeout(() => {
 							setMoveSecondCopyToCenter(true);
 							setGreyOutSecondNumber(true); // Turn second number grey when copy moves
+							// Fade out copies and show sum after second copy moves
+							setTimeout(() => {
+								setFadeOutCopies(true);
+								setTimeout(() => {
+									setShowSum(true);
+								}, 500); // Wait for fade out animation
+							}, 500); // Wait for second copy to finish moving
 						}, 300); // Wait for second copy to appear
 					}, 500); // Wait for first copy to finish moving
 				}, 300); // Wait for copy to appear
@@ -191,7 +202,7 @@ const MeanV2 = () => {
 										moveCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
-									}`}
+									} ${fadeOutCopies ? 'fade-out-animation' : ''}`}
 									style={{
 										transition: moveCopyToCenter ? 'all 0.5s ease-in-out' : 'none',
 										left: moveCopyToCenter ? undefined : `${firstNumberPosition.x}px`,
@@ -208,7 +219,7 @@ const MeanV2 = () => {
 										moveSecondCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
-									}`}
+									} ${fadeOutCopies ? 'fade-out-animation' : ''}`}
 									style={{
 										transition: moveSecondCopyToCenter ? 'all 0.5s ease-in-out' : 'none',
 										left: moveSecondCopyToCenter ? undefined : `${secondNumberPosition.x}px`,
@@ -216,6 +227,12 @@ const MeanV2 = () => {
 									}}
 								>
 									{numbers[1]}
+								</div>
+							)}
+							{/* Sum of first two numbers that appears after copies fade out */}
+							{showSum && numbers.length > 1 && (
+								<div className="absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation">
+									{numbers[0] + numbers[1]}
 								</div>
 							)}
 						</div>
