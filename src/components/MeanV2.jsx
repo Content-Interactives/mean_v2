@@ -26,6 +26,12 @@ const MeanV2 = () => {
 	const [greyOutSecondNumber, setGreyOutSecondNumber] = useState(false);
 	const [fadeOutCopies, setFadeOutCopies] = useState(false);
 	const [showSum, setShowSum] = useState(false);
+	const [showThirdNumberCopy, setShowThirdNumberCopy] = useState(false);
+	const [moveThirdCopyToCenter, setMoveThirdCopyToCenter] = useState(false);
+	const [thirdNumberPosition, setThirdNumberPosition] = useState({ x: 0, y: 0 });
+	const [greyOutThirdNumber, setGreyOutThirdNumber] = useState(false);
+	const [fadeOutSumAndThirdCopy, setFadeOutSumAndThirdCopy] = useState(false);
+	const [showFinalSum, setShowFinalSum] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -91,6 +97,12 @@ const MeanV2 = () => {
 		setGreyOutSecondNumber(false);
 		setFadeOutCopies(false);
 		setShowSum(false);
+		setShowThirdNumberCopy(false);
+		setMoveThirdCopyToCenter(false);
+		setThirdNumberPosition({ x: 0, y: 0 });
+		setGreyOutThirdNumber(false);
+		setFadeOutSumAndThirdCopy(false);
+		setShowFinalSum(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -116,6 +128,24 @@ const MeanV2 = () => {
 								setFadeOutCopies(true);
 								setTimeout(() => {
 									setShowSum(true);
+									// Show third number copy after sum appears (if there's a third number)
+									if (numbers.length > 2) {
+										setTimeout(() => {
+											setShowThirdNumberCopy(true);
+											// Move third copy to center after it appears
+											setTimeout(() => {
+												setMoveThirdCopyToCenter(true);
+												setGreyOutThirdNumber(true); // Turn third number grey when copy moves
+												// Fade out sum and third copy, show final sum
+												setTimeout(() => {
+													setFadeOutSumAndThirdCopy(true);
+													setTimeout(() => {
+														setShowFinalSum(true);
+													}, 500); // Wait for fade out animation
+												}, 500); // Wait for third copy to finish moving
+											}, 300); // Wait for third copy to appear
+										}, 500); // Wait for sum to appear
+									}
 								}, 500); // Wait for fade out animation
 							}, 500); // Wait for second copy to finish moving
 						}, 300); // Wait for second copy to appear
@@ -148,6 +178,18 @@ const MeanV2 = () => {
 			});
 		}
 	}, [showSecondNumberCopy]);
+
+	useEffect(() => {
+		if (showThirdNumberCopy && numberRefs.current[2]) {
+			const thirdNumRect = numberRefs.current[2].getBoundingClientRect();
+			const containerRect = numberRefs.current[2].closest('.relative').getBoundingClientRect();
+			
+			setThirdNumberPosition({
+				x: thirdNumRect.left - containerRect.left,
+				y: thirdNumRect.top - containerRect.top
+			});
+		}
+	}, [showThirdNumberCopy]);
 
 	return (
 		<Container
@@ -183,7 +225,9 @@ const MeanV2 = () => {
 										ref={el => numberRefs.current[index] = el}
 									>
 										<span className={
-											(index === 0 && greyOutFirstNumber) || (index === 1 && greyOutSecondNumber) 
+											(index === 0 && greyOutFirstNumber) || 
+											(index === 1 && greyOutSecondNumber) || 
+											(index === 2 && greyOutThirdNumber)
 												? 'text-gray-400' 
 												: ''
 										}>
@@ -231,8 +275,31 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first two numbers that appears after copies fade out */}
 							{showSum && numbers.length > 1 && (
-								<div className="absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation">
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''}`}>
 									{numbers[0] + numbers[1]}
+								</div>
+							)}
+							{/* Copy of third number that appears on top of original and moves to center */}
+							{showThirdNumberCopy && numbers.length > 2 && (
+								<div 
+									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+										moveThirdCopyToCenter 
+											? 'top-[140px] left-1/2 -translate-x-1/2' 
+											: ''
+									} ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''}`}
+									style={{
+										transition: moveThirdCopyToCenter ? 'all 0.5s ease-in-out' : 'none',
+										left: moveThirdCopyToCenter ? undefined : `${thirdNumberPosition.x}px`,
+										top: moveThirdCopyToCenter ? undefined : `${thirdNumberPosition.y}px`
+									}}
+								>
+									{numbers[2]}
+								</div>
+							)}
+							{/* Final sum of first three numbers that appears after sum and third copy fade out */}
+							{showFinalSum && numbers.length > 2 && (
+								<div className="absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation">
+									{numbers[0] + numbers[1] + numbers[2]}
 								</div>
 							)}
 						</div>
