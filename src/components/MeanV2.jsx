@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Container } from './ui/reused-ui/Container';
 import { Input } from './ui/reused-ui/Input';
 import { GlowButton } from './ui/reused-ui/GlowButton';
@@ -16,6 +16,17 @@ const MeanV2 = () => {
 	const [flexiAnimationComplete, setFlexiAnimationComplete] = useState(false);
 	const [startSumming, setStartSumming] = useState(false);
 	const [hideCommas, setHideCommas] = useState(false);
+	const [showFirstNumberCopy, setShowFirstNumberCopy] = useState(false);
+	const [moveCopyToCenter, setMoveCopyToCenter] = useState(false);
+	const [firstNumberPosition, setFirstNumberPosition] = useState({ x: 0, y: 0 });
+	const [greyOutFirstNumber, setGreyOutFirstNumber] = useState(false);
+	const [showSecondNumberCopy, setShowSecondNumberCopy] = useState(false);
+	const [moveSecondCopyToCenter, setMoveSecondCopyToCenter] = useState(false);
+	const [secondNumberPosition, setSecondNumberPosition] = useState({ x: 0, y: 0 });
+	const [greyOutSecondNumber, setGreyOutSecondNumber] = useState(false);
+
+	const numberRefs = useRef([]);
+	const centerRef = useRef(null);
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
@@ -68,14 +79,64 @@ const MeanV2 = () => {
 		setFlexiAnimationComplete(false);
 		setStartSumming(false);
 		setHideCommas(false);
+		setShowFirstNumberCopy(false);
+		setMoveCopyToCenter(false);
+		setFirstNumberPosition({ x: 0, y: 0 });
+		setGreyOutFirstNumber(false);
+		setShowSecondNumberCopy(false);
+		setMoveSecondCopyToCenter(false);
+		setSecondNumberPosition({ x: 0, y: 0 });
+		setGreyOutSecondNumber(false);
 	};
 
 	const handleAddNumbers = () => {
 		setStartSumming(true);
 		setTimeout(() => {
 			setHideCommas(true);
+			// Show copy of first number on top of original
+			setTimeout(() => {
+				setShowFirstNumberCopy(true);
+				// Move copy to center after it appears
+				setTimeout(() => {
+					setMoveCopyToCenter(true);
+					setGreyOutFirstNumber(true); // Turn first number grey when copy moves
+					// Show second number copy after first copy moves
+					setTimeout(() => {
+						setShowSecondNumberCopy(true);
+						// Move second copy to center after it appears
+						setTimeout(() => {
+							setMoveSecondCopyToCenter(true);
+							setGreyOutSecondNumber(true); // Turn second number grey when copy moves
+						}, 300); // Wait for second copy to appear
+					}, 500); // Wait for first copy to finish moving
+				}, 300); // Wait for copy to appear
+			}, 500); // Wait for translate-up animation to finish
 		}, 500); // match translate up animation
 	};
+
+	useEffect(() => {
+		if (showFirstNumberCopy && numberRefs.current[0]) {
+			const firstNumRect = numberRefs.current[0].getBoundingClientRect();
+			const containerRect = numberRefs.current[0].closest('.relative').getBoundingClientRect();
+			
+			setFirstNumberPosition({
+				x: firstNumRect.left - containerRect.left,
+				y: firstNumRect.top - containerRect.top
+			});
+		}
+	}, [showFirstNumberCopy]);
+
+	useEffect(() => {
+		if (showSecondNumberCopy && numberRefs.current[1]) {
+			const secondNumRect = numberRefs.current[1].getBoundingClientRect();
+			const containerRect = numberRefs.current[1].closest('.relative').getBoundingClientRect();
+			
+			setSecondNumberPosition({
+				x: secondNumRect.left - containerRect.left,
+				y: secondNumRect.top - containerRect.top
+			});
+		}
+	}, [showSecondNumberCopy]);
 
 	return (
 		<Container
@@ -106,16 +167,60 @@ const MeanV2 = () => {
 						>
 							<p className="text-2xl font-medium text-gray-800">
 								{numbers.map((num, index) => (
-									<span key={index}>
-										<span>{num}</span>
+									<span 
+										key={index}
+										ref={el => numberRefs.current[index] = el}
+									>
+										<span className={
+											(index === 0 && greyOutFirstNumber) || (index === 1 && greyOutSecondNumber) 
+												? 'text-gray-400' 
+												: ''
+										}>
+											{num}
+										</span>
 										{index < numbers.length - 1 && (
 											<span className={hideCommas ? 'fade-out-animation' : ''}> , </span>
 										)}
 									</span>
 								))}
 							</p>
+							{/* Copy of first number that appears on top of original and moves to center */}
+							{showFirstNumberCopy && numbers.length > 0 && (
+								<div 
+									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+										moveCopyToCenter 
+											? 'top-[140px] left-1/2 -translate-x-1/2' 
+											: ''
+									}`}
+									style={{
+										transition: moveCopyToCenter ? 'all 0.5s ease-in-out' : 'none',
+										left: moveCopyToCenter ? undefined : `${firstNumberPosition.x}px`,
+										top: moveCopyToCenter ? undefined : `${firstNumberPosition.y}px`
+									}}
+								>
+									{numbers[0]}
+								</div>
+							)}
+							{/* Copy of second number that appears on top of original and moves to center */}
+							{showSecondNumberCopy && numbers.length > 1 && (
+								<div 
+									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+										moveSecondCopyToCenter 
+											? 'top-[140px] left-1/2 -translate-x-1/2' 
+											: ''
+									}`}
+									style={{
+										transition: moveSecondCopyToCenter ? 'all 0.5s ease-in-out' : 'none',
+										left: moveSecondCopyToCenter ? undefined : `${secondNumberPosition.x}px`,
+										top: moveSecondCopyToCenter ? undefined : `${secondNumberPosition.y}px`
+									}}
+								>
+									{numbers[1]}
+								</div>
+							)}
 						</div>
 					)}
+					<div ref={centerRef} className="absolute top-[170px] left-1/2 -translate-x-1/2"></div>
                 </div>
 
                 <div className={`flex justify-end ${step === 'calculating' ? 'shrink-out-animation' : ''}`}>
