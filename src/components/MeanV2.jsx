@@ -7,6 +7,7 @@ import './ui/reused-animations/fade.css';
 import './ui/reused-animations/scale.css';
 import FlexiWave from '../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
 import FlexiConfident from '../assets/All Flexi Poses/SVG/Flexi_Confident.svg';
+import FlexiThumbsUp from '../assets/All Flexi Poses/SVG/Flexi_ThumbsUp.svg';
 
 const MeanV2 = () => {
 	const [inputValue, setInputValue] = useState('');
@@ -50,6 +51,8 @@ const MeanV2 = () => {
 	const [greyOutSixthNumber, setGreyOutSixthNumber] = useState(false);
 	const [fadeOutSumOfFiveAndSixthCopy, setFadeOutSumOfFiveAndSixthCopy] = useState(false);
 	const [showFinalSumOfAll, setShowFinalSumOfAll] = useState(false);
+	const [animationComplete, setAnimationComplete] = useState(false);
+	const [fadeOutCurrentFlexi, setFadeOutCurrentFlexi] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -139,6 +142,8 @@ const MeanV2 = () => {
 		setGreyOutSixthNumber(false);
 		setFadeOutSumOfFiveAndSixthCopy(false);
 		setShowFinalSumOfAll(false);
+		setAnimationComplete(false);
+		setFadeOutCurrentFlexi(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -216,25 +221,59 @@ const MeanV2 = () => {
 																												setFadeOutSumOfFiveAndSixthCopy(true);
 																												setTimeout(() => {
 																													setShowFinalSumOfAll(true);
+																													setTimeout(() => {
+																														setFadeOutCurrentFlexi(true);
+																														setTimeout(() => {
+																															setAnimationComplete(true);
+																														}, 500); // Wait for fade out animation
+																													}, 500); // Wait for final sum to appear
 																												}, 500); // Wait for fade out animation
 																											}, 500); // Wait for sixth copy to finish moving
 																										}, 300); // Wait for sixth copy to appear
+																									}, 500); // Wait for sum of five to appear
+																								} else {
+																									setTimeout(() => {
+																										setFadeOutCurrentFlexi(true);
+																										setTimeout(() => {
+																											setAnimationComplete(true);
+																										}, 500); // Wait for fade out animation
 																									}, 500); // Wait for sum of five to appear
 																								}
 																							}, 500); // Wait for fade out animation
 																						}, 500); // Wait for fifth copy to finish moving
 																					}, 300); // Wait for fifth copy to appear
 																				}, 500); // Wait for sum of four to appear
+																			} else {
+																				setTimeout(() => {
+																					setFadeOutCurrentFlexi(true);
+																					setTimeout(() => {
+																						setAnimationComplete(true);
+																					}, 500); // Wait for sum of four to appear
+																				}, 500); // Wait for fade out animation
 																			}
 																		}, 500); // Wait for fade out animation
 																	}, 500); // Wait for fourth copy to finish moving
 																}, 300); // Wait for fourth copy to appear
 															}, 500); // Wait for final sum to appear
+														} else {
+															setTimeout(() => {
+																setFadeOutCurrentFlexi(true);
+																setTimeout(() => {
+																	setAnimationComplete(true);
+																}, 500); // Wait for final sum to appear
+															}, 500); // Wait for fade out animation
 														}
 													}, 500); // Wait for fade out animation
 												}, 500); // Wait for third copy to finish moving
 											}, 300); // Wait for third copy to appear
 										}, 500); // Wait for sum to appear
+									} else {
+										setTimeout(() => {
+											setFadeOutCurrentFlexi(true);
+											setTimeout(() => {
+												setAnimationComplete(true);
+											}, 500); // Wait for sum to appear
+										}, 500); // Wait for fade out animation
 									}
 								}, 500); // Wait for fade out animation
 							}, 500); // Wait for second copy to finish moving
@@ -531,9 +570,19 @@ const MeanV2 = () => {
 				
 				{step === 'summing' && (
 					<>
-						<FlexiText zIndex={1} flexiImage={FlexiConfident} className="fade-in-up-animation">
-							Great, now we sum all the numbers first
-						</FlexiText>
+						{!animationComplete ? (
+							<FlexiText 
+								zIndex={1} 
+								flexiImage={FlexiConfident} 
+								className={`fade-in-up-animation ${fadeOutCurrentFlexi ? 'fade-out-animation' : ''}`}
+							>
+								Great, now we sum all the numbers first
+							</FlexiText>
+						) : (
+							<FlexiText zIndex={1} flexiImage={FlexiThumbsUp} className="fade-in-up-animation">
+								Awesome!
+							</FlexiText>
+						)}
 					</>
 				)}
 				{flexiAnimationComplete && (
