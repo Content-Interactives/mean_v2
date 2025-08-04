@@ -79,6 +79,13 @@ const MeanV2 = () => {
 	const [glowFadeOutFourthNumber, setGlowFadeOutFourthNumber] = useState(false);
 	const [glowFadeOutFifthNumber, setGlowFadeOutFifthNumber] = useState(false);
 	const [glowFadeOutSixthNumber, setGlowFadeOutSixthNumber] = useState(false);
+	const [turnBlackFirstNumber, setTurnBlackFirstNumber] = useState(false);
+	const [turnBlackSecondNumber, setTurnBlackSecondNumber] = useState(false);
+	const [turnBlackThirdNumber, setTurnBlackThirdNumber] = useState(false);
+	const [turnBlackFourthNumber, setTurnBlackFourthNumber] = useState(false);
+	const [turnBlackFifthNumber, setTurnBlackFifthNumber] = useState(false);
+	const [turnBlackSixthNumber, setTurnBlackSixthNumber] = useState(false);
+	const [turnBlackQuestionMark, setTurnBlackQuestionMark] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -195,6 +202,13 @@ const MeanV2 = () => {
 		setGlowFadeOutFourthNumber(false);
 		setGlowFadeOutFifthNumber(false);
 		setGlowFadeOutSixthNumber(false);
+		setTurnBlackFirstNumber(false);
+		setTurnBlackSecondNumber(false);
+		setTurnBlackThirdNumber(false);
+		setTurnBlackFourthNumber(false);
+		setTurnBlackFifthNumber(false);
+		setTurnBlackSixthNumber(false);
+		setTurnBlackQuestionMark(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -409,20 +423,37 @@ const MeanV2 = () => {
 																			setQuestionMarkCount(6);
 																			setTimeout(() => {
 																				setGlowFadeOutSixthNumber(true);
-																				setTimeout(() => {
-																					setGlowSixthNumber(false);
-																					setGlowFadeOutSixthNumber(false);
-																				}, 300);
+																																												setTimeout(() => {
+						setGlowSixthNumber(false);
+						setGlowFadeOutSixthNumber(false);
+						setTimeout(() => {
+							setTurnBlackFirstNumber(true);
+							setTurnBlackSecondNumber(true);
+							setTurnBlackThirdNumber(true);
+							setTurnBlackFourthNumber(true);
+							setTurnBlackFifthNumber(true);
+							setTurnBlackSixthNumber(true);
+							setTurnBlackQuestionMark(true);
+						}, 850);
+					}, 300);
 																			}, 800);
 																		}, 300);
 																	}, 800);
 																} else {
 																	setTimeout(() => {
 																		setGlowFadeOutFifthNumber(true);
-																		setTimeout(() => {
-																			setGlowFifthNumber(false);
-																			setGlowFadeOutFifthNumber(false);
-																		}, 300);
+																																							setTimeout(() => {
+					setGlowFifthNumber(false);
+					setGlowFadeOutFifthNumber(false);
+					setTimeout(() => {
+						setTurnBlackFirstNumber(true);
+						setTurnBlackSecondNumber(true);
+						setTurnBlackThirdNumber(true);
+						setTurnBlackFourthNumber(true);
+						setTurnBlackFifthNumber(true);
+						setTurnBlackQuestionMark(true);
+					}, 850);
+				}, 300);
 																	}, 800);
 																}
 															}, 300);
@@ -430,10 +461,17 @@ const MeanV2 = () => {
 													} else {
 														setTimeout(() => {
 															setGlowFadeOutFourthNumber(true);
-															setTimeout(() => {
-																setGlowFourthNumber(false);
-																setGlowFadeOutFourthNumber(false);
-															}, 300);
+																		setTimeout(() => {
+				setGlowFourthNumber(false);
+				setGlowFadeOutFourthNumber(false);
+				setTimeout(() => {
+					setTurnBlackFirstNumber(true);
+					setTurnBlackSecondNumber(true);
+					setTurnBlackThirdNumber(true);
+					setTurnBlackFourthNumber(true);
+					setTurnBlackQuestionMark(true);
+				}, 850);
+			}, 300);
 														}, 800);
 													}
 												}, 300);
@@ -441,10 +479,16 @@ const MeanV2 = () => {
 										} else {
 											setTimeout(() => {
 												setGlowFadeOutThirdNumber(true);
-												setTimeout(() => {
-													setGlowThirdNumber(false);
-													setGlowFadeOutThirdNumber(false);
-												}, 300);
+														setTimeout(() => {
+			setGlowThirdNumber(false);
+			setGlowFadeOutThirdNumber(false);
+					setTimeout(() => {
+			setTurnBlackFirstNumber(true);
+			setTurnBlackSecondNumber(true);
+			setTurnBlackThirdNumber(true);
+			setTurnBlackQuestionMark(true);
+		}, 850);
+		}, 300);
 											}, 800);
 										}
 									}, 300);
@@ -452,10 +496,15 @@ const MeanV2 = () => {
 							} else {
 								setTimeout(() => {
 									setGlowFadeOutSecondNumber(true);
-									setTimeout(() => {
-										setGlowSecondNumber(false);
-										setGlowFadeOutSecondNumber(false);
-									}, 300);
+																		setTimeout(() => {
+		setGlowSecondNumber(false);
+		setGlowFadeOutSecondNumber(false);
+			setTimeout(() => {
+		setTurnBlackFirstNumber(true);
+		setTurnBlackSecondNumber(true);
+		setTurnBlackQuestionMark(true);
+	}, 850);
+	}, 300);
 								}, 800);
 							}
 							}, 300);
@@ -571,22 +620,29 @@ const MeanV2 = () => {
 										key={index}
 										ref={el => numberRefs.current[index] = el}
 									>
-										<span className={`${
-											(index === 0 && lightUpFirstNumber) ||
-											(index === 1 && lightUpSecondNumber) ||
-											(index === 2 && lightUpThirdNumber) ||
-											(index === 3 && lightUpFourthNumber) ||
-											(index === 4 && lightUpFifthNumber) ||
-											(index === 5 && lightUpSixthNumber)
-												? 'text-[#339D6A]'
-												: (index === 0 && greyOutFirstNumber) || 
-												  (index === 1 && greyOutSecondNumber) || 
-												  (index === 2 && greyOutThirdNumber) ||
-												  (index === 3 && greyOutFourthNumber) ||
-												  (index === 4 && greyOutFifthNumber) ||
-												  (index === 5 && greyOutSixthNumber)
-													? 'text-gray-400' 
-													: ''
+										<span className={`transition-colors duration-500 ${
+											(index === 0 && turnBlackFirstNumber) ||
+											(index === 1 && turnBlackSecondNumber) ||
+											(index === 2 && turnBlackThirdNumber) ||
+											(index === 3 && turnBlackFourthNumber) ||
+											(index === 4 && turnBlackFifthNumber) ||
+											(index === 5 && turnBlackSixthNumber)
+												? 'text-[#000000]'
+												: (index === 0 && lightUpFirstNumber) ||
+												  (index === 1 && lightUpSecondNumber) ||
+												  (index === 2 && lightUpThirdNumber) ||
+												  (index === 3 && lightUpFourthNumber) ||
+												  (index === 4 && lightUpFifthNumber) ||
+												  (index === 5 && lightUpSixthNumber)
+													? 'text-[#339D6A]'
+													: (index === 0 && greyOutFirstNumber) || 
+													  (index === 1 && greyOutSecondNumber) || 
+													  (index === 2 && greyOutThirdNumber) ||
+													  (index === 3 && greyOutFourthNumber) ||
+													  (index === 4 && greyOutFifthNumber) ||
+													  (index === 5 && greyOutSixthNumber)
+														? 'text-gray-400' 
+														: ''
 										} ${
 											(index === 0 && glowFirstNumber) ||
 											(index === 1 && glowSecondNumber) ||
@@ -648,7 +704,7 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first two numbers that appears after copies fade out */}
 							{showSum && numbers.length > 1 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''}`}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1]}
 								</div>
 							)}
@@ -746,7 +802,7 @@ const MeanV2 = () => {
 							)}
 							{/* Question mark that appears to the right of the final sum */}
 							{showQuestionMark && numbers.length >= 2 && (
-								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation ${questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'}`}>
+								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation transition-colors duration-500 ${turnBlackQuestionMark ? 'text-[#000000]' : questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'}`}>
 									{questionMarkCount > 0 ? questionMarkCount : '?'}
 								</div>
 							)}
