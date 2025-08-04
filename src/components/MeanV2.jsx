@@ -8,6 +8,7 @@ import './ui/reused-animations/scale.css';
 import FlexiWave from '../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
 import FlexiConfident from '../assets/All Flexi Poses/SVG/Flexi_Confident.svg';
 import FlexiThumbsUp from '../assets/All Flexi Poses/SVG/Flexi_ThumbsUp.svg';
+import FlexiTelescope from '../assets/All Flexi Poses/SVG/Flexi_Telescope.svg';
 
 const MeanV2 = () => {
 	const [inputValue, setInputValue] = useState('');
@@ -53,6 +54,31 @@ const MeanV2 = () => {
 	const [showFinalSumOfAll, setShowFinalSumOfAll] = useState(false);
 	const [animationComplete, setAnimationComplete] = useState(false);
 	const [fadeOutCurrentFlexi, setFadeOutCurrentFlexi] = useState(false);
+	const [hideAddButton, setHideAddButton] = useState(false);
+	const [showCountButton, setShowCountButton] = useState(false);
+	const [moveSumLeft, setMoveSumLeft] = useState(false);
+	const [showTelescopeFlexi, setShowTelescopeFlexi] = useState(false);
+	const [fadeOutThumbsUp, setFadeOutThumbsUp] = useState(false);
+	const [showQuestionMark, setShowQuestionMark] = useState(false);
+	const [lightUpFirstNumber, setLightUpFirstNumber] = useState(false);
+	const [lightUpSecondNumber, setLightUpSecondNumber] = useState(false);
+	const [lightUpThirdNumber, setLightUpThirdNumber] = useState(false);
+	const [lightUpFourthNumber, setLightUpFourthNumber] = useState(false);
+	const [lightUpFifthNumber, setLightUpFifthNumber] = useState(false);
+	const [lightUpSixthNumber, setLightUpSixthNumber] = useState(false);
+	const [questionMarkCount, setQuestionMarkCount] = useState(0);
+	const [glowFirstNumber, setGlowFirstNumber] = useState(false);
+	const [glowSecondNumber, setGlowSecondNumber] = useState(false);
+	const [glowThirdNumber, setGlowThirdNumber] = useState(false);
+	const [glowFourthNumber, setGlowFourthNumber] = useState(false);
+	const [glowFifthNumber, setGlowFifthNumber] = useState(false);
+	const [glowSixthNumber, setGlowSixthNumber] = useState(false);
+	const [glowFadeOutFirstNumber, setGlowFadeOutFirstNumber] = useState(false);
+	const [glowFadeOutSecondNumber, setGlowFadeOutSecondNumber] = useState(false);
+	const [glowFadeOutThirdNumber, setGlowFadeOutThirdNumber] = useState(false);
+	const [glowFadeOutFourthNumber, setGlowFadeOutFourthNumber] = useState(false);
+	const [glowFadeOutFifthNumber, setGlowFadeOutFifthNumber] = useState(false);
+	const [glowFadeOutSixthNumber, setGlowFadeOutSixthNumber] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -144,9 +170,35 @@ const MeanV2 = () => {
 		setShowFinalSumOfAll(false);
 		setAnimationComplete(false);
 		setFadeOutCurrentFlexi(false);
+		setHideAddButton(false);
+		setShowCountButton(false);
+		setMoveSumLeft(false);
+		setShowTelescopeFlexi(false);
+		setFadeOutThumbsUp(false);
+		setShowQuestionMark(false);
+		setLightUpFirstNumber(false);
+		setLightUpSecondNumber(false);
+		setLightUpThirdNumber(false);
+		setLightUpFourthNumber(false);
+		setLightUpFifthNumber(false);
+		setLightUpSixthNumber(false);
+		setQuestionMarkCount(0);
+		setGlowFirstNumber(false);
+		setGlowSecondNumber(false);
+		setGlowThirdNumber(false);
+		setGlowFourthNumber(false);
+		setGlowFifthNumber(false);
+		setGlowSixthNumber(false);
+		setGlowFadeOutFirstNumber(false);
+		setGlowFadeOutSecondNumber(false);
+		setGlowFadeOutThirdNumber(false);
+		setGlowFadeOutFourthNumber(false);
+		setGlowFadeOutFifthNumber(false);
+		setGlowFadeOutSixthNumber(false);
 	};
 
 	const handleAddNumbers = () => {
+		setHideAddButton(true); // Hide the button immediately when clicked
 		setStartSumming(true);
 		setTimeout(() => {
 			setHideCommas(true);
@@ -225,6 +277,9 @@ const MeanV2 = () => {
 																														setFadeOutCurrentFlexi(true);
 																														setTimeout(() => {
 																															setAnimationComplete(true);
+																															setTimeout(() => {
+																																setShowCountButton(true);
+																															}, 500); // Wait for thumbs up animation to complete
 																														}, 500); // Wait for fade out animation
 																													}, 500); // Wait for final sum to appear
 																												}, 500); // Wait for fade out animation
@@ -236,6 +291,9 @@ const MeanV2 = () => {
 																										setFadeOutCurrentFlexi(true);
 																										setTimeout(() => {
 																											setAnimationComplete(true);
+																											setTimeout(() => {
+																												setShowCountButton(true);
+																											}, 500); // Wait for thumbs up animation to complete
 																										}, 500); // Wait for fade out animation
 																									}, 500); // Wait for sum of five to appear
 																								}
@@ -248,6 +306,9 @@ const MeanV2 = () => {
 																					setFadeOutCurrentFlexi(true);
 																					setTimeout(() => {
 																						setAnimationComplete(true);
+																						setTimeout(() => {
+																							setShowCountButton(true);
+																						}, 500); // Wait for thumbs up animation to complete
 																					}, 500); // Wait for sum of four to appear
 																				}, 500); // Wait for fade out animation
 																			}
@@ -260,6 +321,9 @@ const MeanV2 = () => {
 																setFadeOutCurrentFlexi(true);
 																setTimeout(() => {
 																	setAnimationComplete(true);
+																	setTimeout(() => {
+																		setShowCountButton(true);
+																	}, 500); // Wait for thumbs up animation to complete
 																}, 500); // Wait for final sum to appear
 															}, 500); // Wait for fade out animation
 														}
@@ -272,6 +336,9 @@ const MeanV2 = () => {
 											setFadeOutCurrentFlexi(true);
 											setTimeout(() => {
 												setAnimationComplete(true);
+												setTimeout(() => {
+													setShowCountButton(true);
+												}, 500); // Wait for thumbs up animation to complete
 											}, 500); // Wait for sum to appear
 										}, 500); // Wait for fade out animation
 									}
@@ -282,6 +349,121 @@ const MeanV2 = () => {
 				}, 300); // Wait for copy to appear
 			}, 500); // Wait for translate-up animation to finish
 		}, 500); // match translate up animation
+	};
+
+	const handleCountNumbers = () => {
+		setFadeOutThumbsUp(true);
+		setTimeout(() => {
+			setShowTelescopeFlexi(true);
+			setTimeout(() => {
+				setMoveSumLeft(true);
+				setTimeout(() => {
+					setShowQuestionMark(true);
+					setTimeout(() => {
+						setLightUpFirstNumber(true);
+						setGlowFirstNumber(true);
+						setQuestionMarkCount(1);
+						setTimeout(() => {
+							setGlowFadeOutFirstNumber(true);
+							setTimeout(() => {
+								setGlowFirstNumber(false);
+								setGlowFadeOutFirstNumber(false);
+															setLightUpSecondNumber(true);
+							setGlowSecondNumber(true);
+							setQuestionMarkCount(2);
+							if (numbers.length > 2) {
+								setTimeout(() => {
+									setGlowFadeOutSecondNumber(true);
+									setTimeout(() => {
+										setGlowSecondNumber(false);
+										setGlowFadeOutSecondNumber(false);
+										setLightUpThirdNumber(true);
+										setGlowThirdNumber(true);
+										setQuestionMarkCount(3);
+										if (numbers.length > 3) {
+											setTimeout(() => {
+												setGlowFadeOutThirdNumber(true);
+												setTimeout(() => {
+													setGlowThirdNumber(false);
+													setGlowFadeOutThirdNumber(false);
+													setLightUpFourthNumber(true);
+													setGlowFourthNumber(true);
+													setQuestionMarkCount(4);
+													if (numbers.length > 4) {
+														setTimeout(() => {
+															setGlowFadeOutFourthNumber(true);
+															setTimeout(() => {
+																setGlowFourthNumber(false);
+																setGlowFadeOutFourthNumber(false);
+																setLightUpFifthNumber(true);
+																setGlowFifthNumber(true);
+																setQuestionMarkCount(5);
+																if (numbers.length > 5) {
+																	setTimeout(() => {
+																		setGlowFadeOutFifthNumber(true);
+																		setTimeout(() => {
+																			setGlowFifthNumber(false);
+																			setGlowFadeOutFifthNumber(false);
+																			setLightUpSixthNumber(true);
+																			setGlowSixthNumber(true);
+																			setQuestionMarkCount(6);
+																			setTimeout(() => {
+																				setGlowFadeOutSixthNumber(true);
+																				setTimeout(() => {
+																					setGlowSixthNumber(false);
+																					setGlowFadeOutSixthNumber(false);
+																				}, 300);
+																			}, 800);
+																		}, 300);
+																	}, 800);
+																} else {
+																	setTimeout(() => {
+																		setGlowFadeOutFifthNumber(true);
+																		setTimeout(() => {
+																			setGlowFifthNumber(false);
+																			setGlowFadeOutFifthNumber(false);
+																		}, 300);
+																	}, 800);
+																}
+															}, 300);
+														}, 800);
+													} else {
+														setTimeout(() => {
+															setGlowFadeOutFourthNumber(true);
+															setTimeout(() => {
+																setGlowFourthNumber(false);
+																setGlowFadeOutFourthNumber(false);
+															}, 300);
+														}, 800);
+													}
+												}, 300);
+											}, 800);
+										} else {
+											setTimeout(() => {
+												setGlowFadeOutThirdNumber(true);
+												setTimeout(() => {
+													setGlowThirdNumber(false);
+													setGlowFadeOutThirdNumber(false);
+												}, 300);
+											}, 800);
+										}
+									}, 300);
+								}, 800);
+							} else {
+								setTimeout(() => {
+									setGlowFadeOutSecondNumber(true);
+									setTimeout(() => {
+										setGlowSecondNumber(false);
+										setGlowFadeOutSecondNumber(false);
+									}, 300);
+								}, 800);
+							}
+							}, 300);
+						}, 800);
+					}, 800); // Wait for question mark to appear
+				}, 500); // Wait for sum to finish moving left
+			}, 500); // Wait for telescope Flexi to appear
+		}, 500); // Wait for fade out animation
 	};
 
 	useEffect(() => {
@@ -383,22 +565,45 @@ const MeanV2 = () => {
 						<div 
 							className={`text-center grow-in-animation relative top-[170px] ${startSumming ? 'translate-up-animation' : ''}`}
 						>
-							<p className="text-2xl font-medium text-gray-800">
+							<p className="text-3xl font-medium text-gray-800">
 								{numbers.map((num, index) => (
 									<span 
 										key={index}
 										ref={el => numberRefs.current[index] = el}
 									>
-										<span className={
-											(index === 0 && greyOutFirstNumber) || 
-											(index === 1 && greyOutSecondNumber) || 
-											(index === 2 && greyOutThirdNumber) ||
-											(index === 3 && greyOutFourthNumber) ||
-											(index === 4 && greyOutFifthNumber) ||
-											(index === 5 && greyOutSixthNumber)
-												? 'text-gray-400' 
-												: ''
-										}>
+										<span className={`${
+											(index === 0 && lightUpFirstNumber) ||
+											(index === 1 && lightUpSecondNumber) ||
+											(index === 2 && lightUpThirdNumber) ||
+											(index === 3 && lightUpFourthNumber) ||
+											(index === 4 && lightUpFifthNumber) ||
+											(index === 5 && lightUpSixthNumber)
+												? 'text-[#339D6A]'
+												: (index === 0 && greyOutFirstNumber) || 
+												  (index === 1 && greyOutSecondNumber) || 
+												  (index === 2 && greyOutThirdNumber) ||
+												  (index === 3 && greyOutFourthNumber) ||
+												  (index === 4 && greyOutFifthNumber) ||
+												  (index === 5 && greyOutSixthNumber)
+													? 'text-gray-400' 
+													: ''
+										} ${
+											(index === 0 && glowFirstNumber) ||
+											(index === 1 && glowSecondNumber) ||
+											(index === 2 && glowThirdNumber) ||
+											(index === 3 && glowFourthNumber) ||
+											(index === 4 && glowFifthNumber) ||
+											(index === 5 && glowSixthNumber)
+												? 'glow-fade-in-animation'
+												: (index === 0 && glowFadeOutFirstNumber) ||
+												  (index === 1 && glowFadeOutSecondNumber) ||
+												  (index === 2 && glowFadeOutThirdNumber) ||
+												  (index === 3 && glowFadeOutFourthNumber) ||
+												  (index === 4 && glowFadeOutFifthNumber) ||
+												  (index === 5 && glowFadeOutSixthNumber)
+													? 'glow-fade-out-animation'
+													: ''
+										}`}>
 											{num}
 										</span>
 										{index < numbers.length - 1 && (
@@ -410,7 +615,7 @@ const MeanV2 = () => {
 							{/* Copy of first number that appears on top of original and moves to center */}
 							{showFirstNumberCopy && numbers.length > 0 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -427,7 +632,7 @@ const MeanV2 = () => {
 							{/* Copy of second number that appears on top of original and moves to center */}
 							{showSecondNumberCopy && numbers.length > 1 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveSecondCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -443,14 +648,14 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first two numbers that appears after copies fade out */}
 							{showSum && numbers.length > 1 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''}`}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''}`}>
 									{numbers[0] + numbers[1]}
 								</div>
 							)}
 							{/* Copy of third number that appears on top of original and moves to center */}
 							{showThirdNumberCopy && numbers.length > 2 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveThirdCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -466,14 +671,14 @@ const MeanV2 = () => {
 							)}
 							{/* Final sum of first three numbers that appears after sum and third copy fade out */}
 							{showFinalSum && numbers.length > 2 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation ${fadeOutFinalSumAndFourthCopy ? 'fade-out-animation' : ''}`}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutFinalSumAndFourthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2]}
 								</div>
 							)}
 							{/* Copy of fourth number that appears on top of original and moves to center */}
 							{showFourthNumberCopy && numbers.length > 3 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveFourthCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -489,14 +694,14 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first four numbers that appears after final sum and fourth copy fade out */}
 							{showSumOfFour && numbers.length > 3 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFourAndFifthCopy ? 'fade-out-animation' : ''}`}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFourAndFifthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3]}
 								</div>
 							)}
 							{/* Copy of fifth number that appears on top of original and moves to center */}
 							{showFifthNumberCopy && numbers.length > 4 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveFifthCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -512,14 +717,14 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first five numbers that appears after sum of four and fifth copy fade out */}
 							{showSumOfFive && numbers.length > 4 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFiveAndSixthCopy ? 'fade-out-animation' : ''}`}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFiveAndSixthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4]}
 								</div>
 							)}
 							{/* Copy of sixth number that appears on top of original and moves to center */}
 							{showSixthNumberCopy && numbers.length > 5 && (
 								<div 
-									className={`absolute text-2xl font-medium text-gray-800 fade-in-animation ${
+									className={`absolute text-3xl font-medium text-gray-800 fade-in-animation ${
 										moveSixthCopyToCenter 
 											? 'top-[140px] left-1/2 -translate-x-1/2' 
 											: ''
@@ -535,8 +740,14 @@ const MeanV2 = () => {
 							)}
 							{/* Final sum of all numbers that appears after sum of five and sixth copy fade out */}
 							{showFinalSumOfAll && numbers.length > 5 && (
-								<div className="absolute top-[140px] left-1/2 -translate-x-1/2 text-2xl font-medium text-gray-800 fade-in-animation">
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]}
+								</div>
+							)}
+							{/* Question mark that appears to the right of the final sum */}
+							{showQuestionMark && numbers.length >= 2 && (
+								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation ${questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'}`}>
+									{questionMarkCount > 0 ? questionMarkCount : '?'}
 								</div>
 							)}
 						</div>
@@ -578,19 +789,36 @@ const MeanV2 = () => {
 							>
 								Great, now we sum all the numbers first
 							</FlexiText>
-						) : (
-							<FlexiText zIndex={1} flexiImage={FlexiThumbsUp} className="fade-in-up-animation">
+						) : !showTelescopeFlexi ? (
+							<FlexiText 
+								zIndex={1} 
+								flexiImage={FlexiThumbsUp} 
+								className={`fade-in-up-animation ${fadeOutThumbsUp ? 'fade-out-animation' : ''}`}
+							>
 								Awesome!
+							</FlexiText>
+						) : (
+							<FlexiText zIndex={1} flexiImage={FlexiTelescope} className="fade-in-up-animation">
+								Cool, now let's count the numbers
 							</FlexiText>
 						)}
 					</>
 				)}
-				{flexiAnimationComplete && (
+				{flexiAnimationComplete && !hideAddButton && (
 					<div 
 						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
 					>
 						<GlowButton onClick={handleAddNumbers}>
 							<p className="whitespace-nowrap">Add Numbers</p>
+						</GlowButton>
+					</div>
+				)}
+				{showCountButton && (
+					<div 
+						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
+					>
+						<GlowButton onClick={handleCountNumbers}>
+							<p className="whitespace-nowrap">Count Numbers</p>
 						</GlowButton>
 					</div>
 				)}

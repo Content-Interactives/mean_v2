@@ -152,3 +152,45 @@
 	animation: translateUpAnimation 0.5s ease-in-out forwards;
 }
 
+@keyframes glowAnimation {
+	0% {
+		text-shadow: 0 0 5px #66B68F, 0 0 10px #66B68F, 0 0 15px #66B68F;
+	}
+	50% {
+		text-shadow: 0 0 10px #66B68F, 0 0 20px #66B68F, 0 0 30px #66B68F;
+	}
+	100% {
+		text-shadow: 0 0 5px #66B68F, 0 0 10px #66B68F, 0 0 15px #66B68F;
+	}
+}
+
+@keyframes glowFadeInAnimation {
+	0% {
+		text-shadow: 0 0 0px #66B68F, 0 0 0px #66B68F, 0 0 0px #66B68F;
+	}
+	100% {
+		text-shadow: 0 0 5px #66B68F, 0 0 10px #66B68F, 0 0 15px #66B68F;
+	}
+}
+
+@keyframes glowFadeOutAnimation {
+	0% {
+		text-shadow: 0 0 5px #66B68F, 0 0 10px #66B68F, 0 0 15px #66B68F;
+	}
+	100% {
+		text-shadow: 0 0 0px #66B68F, 0 0 0px #66B68F, 0 0 0px #66B68F;
+	}
+}
+
+.glow-animation {
+	animation: glowAnimation 0.8s ease-in-out;
+}
+
+.glow-fade-in-animation {
+	animation: glowFadeInAnimation 0.3s ease-in-out forwards;
+}
+
+.glow-fade-out-animation {
+	animation: glowFadeOutAnimation 0.3s ease-in-out forwards;
+}
+
