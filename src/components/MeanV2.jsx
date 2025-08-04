@@ -86,6 +86,7 @@ const MeanV2 = () => {
 	const [turnBlackFifthNumber, setTurnBlackFifthNumber] = useState(false);
 	const [turnBlackSixthNumber, setTurnBlackSixthNumber] = useState(false);
 	const [turnBlackQuestionMark, setTurnBlackQuestionMark] = useState(false);
+	const [showDivisionSymbol, setShowDivisionSymbol] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -209,6 +210,7 @@ const MeanV2 = () => {
 		setTurnBlackFifthNumber(false);
 		setTurnBlackSixthNumber(false);
 		setTurnBlackQuestionMark(false);
+		setShowDivisionSymbol(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -434,6 +436,9 @@ const MeanV2 = () => {
 							setTurnBlackFifthNumber(true);
 							setTurnBlackSixthNumber(true);
 							setTurnBlackQuestionMark(true);
+							setTimeout(() => {
+								setShowDivisionSymbol(true);
+							}, 500);
 						}, 850);
 					}, 300);
 																			}, 800);
@@ -452,6 +457,9 @@ const MeanV2 = () => {
 						setTurnBlackFourthNumber(true);
 						setTurnBlackFifthNumber(true);
 						setTurnBlackQuestionMark(true);
+						setTimeout(() => {
+							setShowDivisionSymbol(true);
+						}, 500);
 					}, 850);
 				}, 300);
 																	}, 800);
@@ -470,6 +478,9 @@ const MeanV2 = () => {
 					setTurnBlackThirdNumber(true);
 					setTurnBlackFourthNumber(true);
 					setTurnBlackQuestionMark(true);
+					setTimeout(() => {
+						setShowDivisionSymbol(true);
+					}, 500);
 				}, 850);
 			}, 300);
 														}, 800);
@@ -487,6 +498,9 @@ const MeanV2 = () => {
 			setTurnBlackSecondNumber(true);
 			setTurnBlackThirdNumber(true);
 			setTurnBlackQuestionMark(true);
+			setTimeout(() => {
+				setShowDivisionSymbol(true);
+			}, 500);
 		}, 850);
 		}, 300);
 											}, 800);
@@ -499,11 +513,14 @@ const MeanV2 = () => {
 																		setTimeout(() => {
 		setGlowSecondNumber(false);
 		setGlowFadeOutSecondNumber(false);
+					setTimeout(() => {
+			setTurnBlackFirstNumber(true);
+			setTurnBlackSecondNumber(true);
+			setTurnBlackQuestionMark(true);
 			setTimeout(() => {
-		setTurnBlackFirstNumber(true);
-		setTurnBlackSecondNumber(true);
-		setTurnBlackQuestionMark(true);
-	}, 850);
+				setShowDivisionSymbol(true);
+			}, 500);
+		}, 850);
 	}, 300);
 								}, 800);
 							}
@@ -804,6 +821,12 @@ const MeanV2 = () => {
 							{showQuestionMark && numbers.length >= 2 && (
 								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation transition-colors duration-500 ${turnBlackQuestionMark ? 'text-[#000000]' : questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'}`}>
 									{questionMarkCount > 0 ? questionMarkCount : '?'}
+								</div>
+							)}
+							{/* Division symbol that appears between the sum and the counted number */}
+							{showDivisionSymbol && numbers.length >= 2 && (
+								<div className="absolute top-[140px] left-1/2 -translate-x-[8px] text-3xl font-medium text-gray-800 fade-in-animation">
+									÷
 								</div>
 							)}
 						</div>
