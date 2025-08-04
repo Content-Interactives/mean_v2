@@ -825,7 +825,13 @@ const MeanV2 = () => {
 							)}
 							{/* Division symbol that appears between the sum and the counted number */}
 							{showDivisionSymbol && numbers.length >= 2 && (
-								<div className="absolute top-[140px] left-1/2 -translate-x-[8px] text-3xl font-medium text-gray-800 fade-in-animation">
+								<div className={`absolute top-[140px] left-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${
+									// Calculate the final sum to determine positioning
+									(() => {
+										const finalSum = numbers.reduce((sum, num) => sum + num, 0);
+										return finalSum >= 100 ? '-translate-x-[-5px]' : '-translate-x-[8px]';
+									})()
+								}`}>
 									÷
 								</div>
 							)}
