@@ -9,6 +9,8 @@ import FlexiWave from '../assets/All Flexi Poses/SVG/Flexi_Wave.svg';
 import FlexiConfident from '../assets/All Flexi Poses/SVG/Flexi_Confident.svg';
 import FlexiThumbsUp from '../assets/All Flexi Poses/SVG/Flexi_ThumbsUp.svg';
 import FlexiTelescope from '../assets/All Flexi Poses/SVG/Flexi_Telescope.svg';
+import FlexiWizard from '../assets/All Flexi Poses/GIF/Flexi_Wizard-large.gif';
+import FlexiStars from '../assets/All Flexi Poses/SVG/Flexi_Stars.svg';
 
 const MeanV2 = () => {
 	const [inputValue, setInputValue] = useState('');
@@ -90,6 +92,25 @@ const MeanV2 = () => {
 	const [hideCountButton, setHideCountButton] = useState(false);
 	const [showFinalThumbsUp, setShowFinalThumbsUp] = useState(false);
 	const [fadeOutTelescopeFlexi, setFadeOutTelescopeFlexi] = useState(false);
+	const [showDivideButton, setShowDivideButton] = useState(false);
+	const [hideDivideButton, setHideDivideButton] = useState(false);
+	const [greyOutLitNumbers, setGreyOutLitNumbers] = useState(false);
+	const [moveElementsUp, setMoveElementsUp] = useState(false);
+	const [showFinalSumCopy, setShowFinalSumCopy] = useState(false);
+	const [moveFinalSumCopyToCenter, setMoveFinalSumCopyToCenter] = useState(false);
+	const [greyOutFinalSum, setGreyOutFinalSum] = useState(false);
+	const [showCountNumberCopy, setShowCountNumberCopy] = useState(false);
+	const [moveCountNumberCopyToEnd, setMoveCountNumberCopyToEnd] = useState(false);
+	const [greyOutCountNumber, setGreyOutCountNumber] = useState(false);
+	const [showDivisionSymbolCopy, setShowDivisionSymbolCopy] = useState(false);
+	const [moveDivisionSymbolCopyToEnd, setMoveDivisionSymbolCopyToEnd] = useState(false);
+	const [greyOutDivisionSymbol, setGreyOutDivisionSymbol] = useState(false);
+	const [fadeOutAllCopies, setFadeOutAllCopies] = useState(false);
+	const [showQuotient, setShowQuotient] = useState(false);
+	const [showFlexiWizard, setShowFlexiWizard] = useState(false);
+	const [fadeOutCurrentFlexiForWizard, setFadeOutCurrentFlexiForWizard] = useState(false);
+	const [showFlexiStars, setShowFlexiStars] = useState(false);
+	const [fadeOutFlexiWizardForStars, setFadeOutFlexiWizardForStars] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -217,6 +238,25 @@ const MeanV2 = () => {
 		setHideCountButton(false);
 		setShowFinalThumbsUp(false);
 		setFadeOutTelescopeFlexi(false);
+		setShowDivideButton(false);
+		setHideDivideButton(false);
+		setGreyOutLitNumbers(false);
+		setMoveElementsUp(false);
+		setShowFinalSumCopy(false);
+		setMoveFinalSumCopyToCenter(false);
+		setGreyOutFinalSum(false);
+		setShowCountNumberCopy(false);
+		setMoveCountNumberCopyToEnd(false);
+		setGreyOutCountNumber(false);
+		setShowDivisionSymbolCopy(false);
+		setMoveDivisionSymbolCopyToEnd(false);
+		setGreyOutDivisionSymbol(false);
+		setFadeOutAllCopies(false);
+		setShowQuotient(false);
+		setShowFlexiWizard(false);
+		setFadeOutCurrentFlexiForWizard(false);
+		setShowFlexiStars(false);
+		setFadeOutFlexiWizardForStars(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -449,6 +489,9 @@ const MeanV2 = () => {
 									setFadeOutTelescopeFlexi(true);
 									setTimeout(() => {
 										setShowFinalThumbsUp(true);
+										setTimeout(() => {
+											setShowDivideButton(true);
+										}, 500); // Wait for final thumbs up to appear
 									}, 500); // Wait for fade out animation
 								}, 500); // Wait for division symbol to appear
 							}, 500);
@@ -476,6 +519,9 @@ const MeanV2 = () => {
 							setFadeOutTelescopeFlexi(true);
 							setTimeout(() => {
 								setShowFinalThumbsUp(true);
+								setTimeout(() => {
+									setShowDivideButton(true);
+								}, 500); // Wait for final thumbs up to appear
 							}, 500); // Wait for fade out animation
 						}, 500); // Wait for division symbol to appear
 					}, 500);
@@ -503,6 +549,9 @@ const MeanV2 = () => {
 						setFadeOutTelescopeFlexi(true);
 						setTimeout(() => {
 							setShowFinalThumbsUp(true);
+							setTimeout(() => {
+								setShowDivideButton(true);
+							}, 500); // Wait for final thumbs up to appear
 						}, 500); // Wait for fade out animation
 					}, 500); // Wait for division symbol to appear
 				}, 500);
@@ -529,6 +578,9 @@ const MeanV2 = () => {
 				setFadeOutTelescopeFlexi(true);
 				setTimeout(() => {
 					setShowFinalThumbsUp(true);
+					setTimeout(() => {
+						setShowDivideButton(true);
+					}, 500); // Wait for final thumbs up to appear
 				}, 500); // Wait for fade out animation
 			}, 500); // Wait for division symbol to appear
 		}, 500);
@@ -554,6 +606,9 @@ const MeanV2 = () => {
 				setFadeOutTelescopeFlexi(true);
 				setTimeout(() => {
 					setShowFinalThumbsUp(true);
+					setTimeout(() => {
+						setShowDivideButton(true);
+					}, 500); // Wait for final thumbs up to appear
 				}, 500); // Wait for fade out animation
 			}, 500); // Wait for division symbol to appear
 		}, 500);
@@ -641,6 +696,8 @@ const MeanV2 = () => {
 		}
 	}, [showSixthNumberCopy]);
 
+
+
 	return (
 		<Container
 			text="MeanV2"
@@ -675,28 +732,37 @@ const MeanV2 = () => {
 										ref={el => numberRefs.current[index] = el}
 									>
 										<span className={`transition-colors duration-500 ${
-											(index === 0 && turnBlackFirstNumber) ||
-											(index === 1 && turnBlackSecondNumber) ||
-											(index === 2 && turnBlackThirdNumber) ||
-											(index === 3 && turnBlackFourthNumber) ||
-											(index === 4 && turnBlackFifthNumber) ||
-											(index === 5 && turnBlackSixthNumber)
-												? 'text-[#000000]'
-												: (index === 0 && lightUpFirstNumber) ||
-												  (index === 1 && lightUpSecondNumber) ||
-												  (index === 2 && lightUpThirdNumber) ||
-												  (index === 3 && lightUpFourthNumber) ||
-												  (index === 4 && lightUpFifthNumber) ||
-												  (index === 5 && lightUpSixthNumber)
-													? 'text-[#339D6A]'
-													: (index === 0 && greyOutFirstNumber) || 
-													  (index === 1 && greyOutSecondNumber) || 
-													  (index === 2 && greyOutThirdNumber) ||
-													  (index === 3 && greyOutFourthNumber) ||
-													  (index === 4 && greyOutFifthNumber) ||
-													  (index === 5 && greyOutSixthNumber)
-														? 'text-gray-400' 
-														: ''
+											greyOutLitNumbers && (
+												(index === 0 && lightUpFirstNumber) ||
+												(index === 1 && lightUpSecondNumber) ||
+												(index === 2 && lightUpThirdNumber) ||
+												(index === 3 && lightUpFourthNumber) ||
+												(index === 4 && lightUpFifthNumber) ||
+												(index === 5 && lightUpSixthNumber)
+											)
+												? 'text-gray-400'
+												: (index === 0 && turnBlackFirstNumber) ||
+												  (index === 1 && turnBlackSecondNumber) ||
+												  (index === 2 && turnBlackThirdNumber) ||
+												  (index === 3 && turnBlackFourthNumber) ||
+												  (index === 4 && turnBlackFifthNumber) ||
+												  (index === 5 && turnBlackSixthNumber)
+													? 'text-[#000000]'
+													: (index === 0 && lightUpFirstNumber) ||
+													  (index === 1 && lightUpSecondNumber) ||
+													  (index === 2 && lightUpThirdNumber) ||
+													  (index === 3 && lightUpFourthNumber) ||
+													  (index === 4 && lightUpFifthNumber) ||
+													  (index === 5 && lightUpSixthNumber)
+														? 'text-[#339D6A]'
+														: (index === 0 && greyOutFirstNumber) || 
+														  (index === 1 && greyOutSecondNumber) || 
+														  (index === 2 && greyOutThirdNumber) ||
+														  (index === 3 && greyOutFourthNumber) ||
+														  (index === 4 && greyOutFifthNumber) ||
+														  (index === 5 && greyOutSixthNumber)
+															? 'text-gray-400' 
+															: ''
 										} ${
 											(index === 0 && glowFirstNumber) ||
 											(index === 1 && glowSecondNumber) ||
@@ -758,7 +824,7 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first two numbers that appears after copies fade out */}
 							{showSum && numbers.length > 1 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutFinalSum ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${fadeOutSumAndThirdCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: (moveSumLeft || moveElementsUp) ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1]}
 								</div>
 							)}
@@ -781,7 +847,7 @@ const MeanV2 = () => {
 							)}
 							{/* Final sum of first three numbers that appears after sum and third copy fade out */}
 							{showFinalSum && numbers.length > 2 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutFinalSumAndFourthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutFinalSum ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${fadeOutFinalSumAndFourthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: (moveSumLeft || moveElementsUp) ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2]}
 								</div>
 							)}
@@ -804,7 +870,7 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first four numbers that appears after final sum and fourth copy fade out */}
 							{showSumOfFour && numbers.length > 3 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFourAndFifthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutFinalSum ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${fadeOutSumOfFourAndFifthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: (moveSumLeft || moveElementsUp) ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3]}
 								</div>
 							)}
@@ -827,7 +893,7 @@ const MeanV2 = () => {
 							)}
 							{/* Sum of first five numbers that appears after sum of four and fifth copy fade out */}
 							{showSumOfFive && numbers.length > 4 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutSumOfFiveAndSixthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutFinalSum ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${fadeOutSumOfFiveAndSixthCopy ? 'fade-out-animation' : ''} ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: (moveSumLeft || moveElementsUp) ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4]}
 								</div>
 							)}
@@ -850,28 +916,91 @@ const MeanV2 = () => {
 							)}
 							{/* Final sum of all numbers that appears after sum of five and sixth copy fade out */}
 							{showFinalSumOfAll && numbers.length > 5 && (
-								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${moveSumLeft ? '-translate-x-[60px]' : ''}`} style={{ transition: moveSumLeft ? 'all 0.5s ease-in-out' : 'none' }}>
+								<div className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutFinalSum ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: (moveSumLeft || moveElementsUp) ? 'all 0.5s ease-in-out' : 'none' }}>
 									{numbers[0] + numbers[1] + numbers[2] + numbers[3] + numbers[4] + numbers[5]}
 								</div>
 							)}
 							{/* Question mark that appears to the right of the final sum */}
 							{showQuestionMark && numbers.length >= 2 && (
-								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation transition-colors duration-500 ${turnBlackQuestionMark ? 'text-[#000000]' : questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'}`}>
+								<div className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium fade-in-animation transition-colors duration-500 ${greyOutCountNumber ? 'text-gray-400' : turnBlackQuestionMark ? 'text-[#000000]' : questionMarkCount > 0 ? 'text-[#339D6A]' : 'text-gray-800'} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: moveElementsUp ? 'all 0.5s ease-in-out' : 'none' }}>
 									{questionMarkCount > 0 ? questionMarkCount : '?'}
 								</div>
 							)}
 							{/* Division symbol that appears between the sum and the counted number */}
 							{showDivisionSymbol && numbers.length >= 2 && (
-								<div className={`absolute top-[140px] left-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${
+								<div className={`absolute top-[140px] left-1/2 text-3xl font-medium transition-colors duration-500 ${greyOutDivisionSymbol ? 'text-gray-400' : 'text-gray-800'} fade-in-animation ${
 									// Calculate the final sum to determine positioning
 									(() => {
 										const finalSum = numbers.reduce((sum, num) => sum + num, 0);
 										return finalSum >= 100 ? '-translate-x-[-5px]' : '-translate-x-[8px]';
 									})()
-								}`}>
+								} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: moveElementsUp ? 'all 0.5s ease-in-out' : 'none' }}>
 									÷
 								</div>
 							)}
+							{/* Copy of final sum that appears overlayed over the final sum and moves down and right */}
+														{showFinalSumCopy && numbers.length >= 2 && (
+								<div
+									className={`absolute top-[140px] left-1/2 -translate-x-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
+										moveFinalSumCopyToCenter
+											? 'translate-x-[-16px] translate-y-[35px]'
+											: ''
+									} ${moveSumLeft ? '-translate-x-[60px]' : ''} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
+									style={{
+										transition: moveFinalSumCopyToCenter ? 'all 0.5s ease-in-out' : 'none'
+									}}
+								>
+									{numbers.reduce((sum, num) => sum + num, 0)}
+								</div>
+							)}
+							{/* Copy of count number that appears overlayed over the actual count number and moves to the end position of the final sum copy */}
+							{showCountNumberCopy && numbers.length >= 2 && (
+								<div
+									className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
+										moveCountNumberCopyToEnd
+											? 'translate-x-[-10px] translate-y-[35px]'
+											: ''
+									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
+									style={{
+										transition: moveCountNumberCopyToEnd ? 'all 0.5s ease-in-out' : 'none'
+									}}
+								>
+									{questionMarkCount > 0 ? questionMarkCount : '?'}
+								</div>
+							)}
+							{/* Copy of division symbol that appears overlayed over the actual division symbol and moves to the end position */}
+							{showDivisionSymbolCopy && numbers.length >= 2 && (
+								<div
+									className={`absolute top-[140px] left-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
+										moveDivisionSymbolCopyToEnd
+											? 'translate-x-[-13px] translate-y-[35px]'
+											: ''
+									} ${
+										// Calculate the final sum to determine positioning
+										(() => {
+											const finalSum = numbers.reduce((sum, num) => sum + num, 0);
+											return finalSum >= 100 ? '-translate-x-[-5px]' : '-translate-x-[8px]';
+										})()
+									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
+									style={{
+										transition: moveDivisionSymbolCopyToEnd ? 'all 0.5s ease-in-out' : 'none'
+									}}
+								>
+									÷
+								</div>
+							)}
+							{/* Quotient that appears after all copies fade out */}
+							{showQuotient && numbers.length >= 2 && (
+								<div
+									className={`absolute top-[140px] left-1/2 text-3xl font-medium text-[#008545] fade-in-animation ${
+										// Position the quotient where the copies ended up
+										'translate-x-[-13px] translate-y-[35px]'
+									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
+								>
+									{Math.round((numbers.reduce((sum, num) => sum + num, 0) / questionMarkCount) * 100) / 100}
+								</div>
+							)}
+
 						</div>
 					)}
 					<div ref={centerRef} className="absolute top-[170px] left-1/2 -translate-x-1/2"></div>
@@ -927,8 +1056,16 @@ const MeanV2 = () => {
 							>
 								Cool, now let's count the numbers
 							</FlexiText>
+						) : showFlexiStars ? (
+							<FlexiText zIndex={1} flexiImage={FlexiStars} className="fade-in-up-animation">
+								Yippee, this is the mean!
+							</FlexiText>
+						) : showFlexiWizard ? (
+							<FlexiText zIndex={1} flexiImage={FlexiWizard} className={`fade-in-up-animation ${fadeOutFlexiWizardForStars ? 'fade-out-animation' : ''}`}>
+								Dividing...
+							</FlexiText>
 						) : (
-							<FlexiText zIndex={1} flexiImage={FlexiThumbsUp} className="fade-in-up-animation">
+							<FlexiText zIndex={1} flexiImage={FlexiThumbsUp} className={`fade-in-up-animation ${fadeOutCurrentFlexiForWizard ? 'fade-out-animation' : ''}`}>
 								Epic, now we can divide the sum by count
 							</FlexiText>
 						)}
@@ -949,6 +1086,66 @@ const MeanV2 = () => {
 					>
 						<GlowButton onClick={handleCountNumbers}>
 							<p className="whitespace-nowrap">Count Numbers</p>
+						</GlowButton>
+					</div>
+				)}
+				{showDivideButton && !hideDivideButton && (
+					<div 
+						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
+					>
+						<GlowButton onClick={() => {
+							// Hide the divide button completely
+							setHideDivideButton(true);
+							// Change Flexi to Wizard and speech bubble to 'dividing...'
+							setFadeOutCurrentFlexiForWizard(true);
+							setTimeout(() => {
+								setShowFlexiWizard(true);
+							}, 500); // Wait for current Flexi to fade out
+							
+							setGreyOutLitNumbers(true);
+							setMoveElementsUp(true);
+							// After elements move up, show the final sum copy
+							setTimeout(() => {
+								setShowFinalSumCopy(true);
+								setTimeout(() => {
+									setMoveFinalSumCopyToCenter(true);
+									setGreyOutFinalSum(true);
+									// After the final sum copy moves, show the count number copy
+									setTimeout(() => {
+										setShowCountNumberCopy(true);
+										setTimeout(() => {
+											setMoveCountNumberCopyToEnd(true);
+											setGreyOutCountNumber(true);
+											// After the count number copy moves, show the division symbol copy
+											setTimeout(() => {
+												setShowDivisionSymbolCopy(true);
+												setTimeout(() => {
+													setMoveDivisionSymbolCopyToEnd(true);
+													setGreyOutDivisionSymbol(true);
+													// After the division symbol copy moves, fade out all copies and show quotient
+													setTimeout(() => {
+														setFadeOutAllCopies(true);
+														setTimeout(() => {
+															setShowQuotient(true);
+															// After the quotient appears, show Flexi Stars
+															setTimeout(() => {
+																setFadeOutFlexiWizardForStars(true);
+																setTimeout(() => {
+																	setShowFlexiStars(true);
+																}, 500); // Wait for Flexi Wizard to fade out
+															}, 500); // Wait for quotient to appear
+														}, 500); // Wait for copies to fade out
+													}, 500); // Wait for division symbol copy to finish moving
+												}, 300); // Wait for division symbol copy to appear
+											}, 500); // Wait for count number copy to finish moving
+										}, 300); // Wait for count number copy to appear
+									}, 500); // Wait for final sum copy to finish moving
+								}, 300); // Wait for copy to appear
+							}, 500); // Wait for elements to finish moving up
+							// TODO: Add divide functionality
+							console.log('Divide button clicked');
+						}}>
+							<p className="whitespace-nowrap">Divide</p>
 						</GlowButton>
 					</div>
 				)}
