@@ -87,6 +87,9 @@ const MeanV2 = () => {
 	const [turnBlackSixthNumber, setTurnBlackSixthNumber] = useState(false);
 	const [turnBlackQuestionMark, setTurnBlackQuestionMark] = useState(false);
 	const [showDivisionSymbol, setShowDivisionSymbol] = useState(false);
+	const [hideCountButton, setHideCountButton] = useState(false);
+	const [showFinalThumbsUp, setShowFinalThumbsUp] = useState(false);
+	const [fadeOutTelescopeFlexi, setFadeOutTelescopeFlexi] = useState(false);
 
 	const numberRefs = useRef([]);
 	const centerRef = useRef(null);
@@ -211,6 +214,9 @@ const MeanV2 = () => {
 		setTurnBlackSixthNumber(false);
 		setTurnBlackQuestionMark(false);
 		setShowDivisionSymbol(false);
+		setHideCountButton(false);
+		setShowFinalThumbsUp(false);
+		setFadeOutTelescopeFlexi(false);
 	};
 
 	const handleAddNumbers = () => {
@@ -368,6 +374,7 @@ const MeanV2 = () => {
 	};
 
 	const handleCountNumbers = () => {
+		setHideCountButton(true); // Hide the button immediately when clicked
 		setFadeOutThumbsUp(true);
 		setTimeout(() => {
 			setShowTelescopeFlexi(true);
@@ -438,6 +445,12 @@ const MeanV2 = () => {
 							setTurnBlackQuestionMark(true);
 							setTimeout(() => {
 								setShowDivisionSymbol(true);
+								setTimeout(() => {
+									setFadeOutTelescopeFlexi(true);
+									setTimeout(() => {
+										setShowFinalThumbsUp(true);
+									}, 500); // Wait for fade out animation
+								}, 500); // Wait for division symbol to appear
 							}, 500);
 						}, 850);
 					}, 300);
@@ -454,12 +467,18 @@ const MeanV2 = () => {
 						setTurnBlackFirstNumber(true);
 						setTurnBlackSecondNumber(true);
 						setTurnBlackThirdNumber(true);
-						setTurnBlackFourthNumber(true);
-						setTurnBlackFifthNumber(true);
-						setTurnBlackQuestionMark(true);
+											setTurnBlackFourthNumber(true);
+					setTurnBlackFifthNumber(true);
+					setTurnBlackQuestionMark(true);
+					setTimeout(() => {
+						setShowDivisionSymbol(true);
 						setTimeout(() => {
-							setShowDivisionSymbol(true);
-						}, 500);
+							setFadeOutTelescopeFlexi(true);
+							setTimeout(() => {
+								setShowFinalThumbsUp(true);
+							}, 500); // Wait for fade out animation
+						}, 500); // Wait for division symbol to appear
+					}, 500);
 					}, 850);
 				}, 300);
 																	}, 800);
@@ -473,14 +492,20 @@ const MeanV2 = () => {
 				setGlowFourthNumber(false);
 				setGlowFadeOutFourthNumber(false);
 				setTimeout(() => {
-					setTurnBlackFirstNumber(true);
-					setTurnBlackSecondNumber(true);
-					setTurnBlackThirdNumber(true);
-					setTurnBlackFourthNumber(true);
-					setTurnBlackQuestionMark(true);
+									setTurnBlackFirstNumber(true);
+				setTurnBlackSecondNumber(true);
+				setTurnBlackThirdNumber(true);
+				setTurnBlackFourthNumber(true);
+				setTurnBlackQuestionMark(true);
+				setTimeout(() => {
+					setShowDivisionSymbol(true);
 					setTimeout(() => {
-						setShowDivisionSymbol(true);
-					}, 500);
+						setFadeOutTelescopeFlexi(true);
+						setTimeout(() => {
+							setShowFinalThumbsUp(true);
+						}, 500); // Wait for fade out animation
+					}, 500); // Wait for division symbol to appear
+				}, 500);
 				}, 850);
 			}, 300);
 														}, 800);
@@ -494,13 +519,19 @@ const MeanV2 = () => {
 			setGlowThirdNumber(false);
 			setGlowFadeOutThirdNumber(false);
 					setTimeout(() => {
-			setTurnBlackFirstNumber(true);
-			setTurnBlackSecondNumber(true);
-			setTurnBlackThirdNumber(true);
-			setTurnBlackQuestionMark(true);
+					setTurnBlackFirstNumber(true);
+		setTurnBlackSecondNumber(true);
+		setTurnBlackThirdNumber(true);
+		setTurnBlackQuestionMark(true);
+		setTimeout(() => {
+			setShowDivisionSymbol(true);
 			setTimeout(() => {
-				setShowDivisionSymbol(true);
-			}, 500);
+				setFadeOutTelescopeFlexi(true);
+				setTimeout(() => {
+					setShowFinalThumbsUp(true);
+				}, 500); // Wait for fade out animation
+			}, 500); // Wait for division symbol to appear
+		}, 500);
 		}, 850);
 		}, 300);
 											}, 800);
@@ -514,12 +545,18 @@ const MeanV2 = () => {
 		setGlowSecondNumber(false);
 		setGlowFadeOutSecondNumber(false);
 					setTimeout(() => {
-			setTurnBlackFirstNumber(true);
-			setTurnBlackSecondNumber(true);
-			setTurnBlackQuestionMark(true);
+					setTurnBlackFirstNumber(true);
+		setTurnBlackSecondNumber(true);
+		setTurnBlackQuestionMark(true);
+		setTimeout(() => {
+			setShowDivisionSymbol(true);
 			setTimeout(() => {
-				setShowDivisionSymbol(true);
-			}, 500);
+				setFadeOutTelescopeFlexi(true);
+				setTimeout(() => {
+					setShowFinalThumbsUp(true);
+				}, 500); // Wait for fade out animation
+			}, 500); // Wait for division symbol to appear
+		}, 500);
 		}, 850);
 	}, 300);
 								}, 800);
@@ -882,9 +919,17 @@ const MeanV2 = () => {
 							>
 								Awesome!
 							</FlexiText>
-						) : (
-							<FlexiText zIndex={1} flexiImage={FlexiTelescope} className="fade-in-up-animation">
+						) : !showFinalThumbsUp ? (
+							<FlexiText 
+								zIndex={1} 
+								flexiImage={FlexiTelescope} 
+								className={`fade-in-up-animation ${fadeOutTelescopeFlexi ? 'fade-out-animation' : ''}`}
+							>
 								Cool, now let's count the numbers
+							</FlexiText>
+						) : (
+							<FlexiText zIndex={1} flexiImage={FlexiThumbsUp} className="fade-in-up-animation">
+								Epic, now we can divide the sum by count
 							</FlexiText>
 						)}
 					</>
@@ -898,7 +943,7 @@ const MeanV2 = () => {
 						</GlowButton>
 					</div>
 				)}
-				{showCountButton && (
+				{showCountButton && !hideCountButton && (
 					<div 
 						className="absolute bottom-[0px] right-[0px] z-10 fade-in-animation" 
 					>
