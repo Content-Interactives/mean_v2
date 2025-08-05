@@ -958,7 +958,7 @@ const MeanV2 = () => {
 								<div
 									className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
 										moveCountNumberCopyToEnd
-											? 'translate-x-[-20px] translate-y-[35px]'
+											? 'translate-x-[-18px] translate-y-[35px]'
 											: ''
 									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
 									style={{
