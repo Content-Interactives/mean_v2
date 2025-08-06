@@ -117,12 +117,25 @@ const MeanV2 = () => {
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
-		const numberEntries = value.split(/[, ]+/).filter(n => n.trim() !== '');
+		// Replace multiple spaces or commas with a single space, and then trim
+		const sanitizedValue = value.replace(/[, ]+/g, ' ').trim();
+		const numberEntries = sanitizedValue.split(' ').filter(n => n);
 
-		if (numberEntries.length > 6) {
+		if (numberEntries.some(n => !/^\d+$/.test(n) && n !== '')) {
+			setError('Please enter only whole numbers.');
 			return;
+		} else {
+			setError('');
 		}
-		setInputValue(e.target.value);
+		
+		if (numberEntries.length > 6) {
+			setError('You can enter a maximum of 6 numbers.');
+			// Do not return, to allow the user to edit the input
+		} else {
+			setError('');
+		}
+		
+		setInputValue(value);
 	};
 
 	const handleCalculate = () => {
@@ -132,18 +145,18 @@ const MeanV2 = () => {
 			.trim()
 			.split(/[, ]+/)
 			.filter(n => n)
-			.map(Number);
+			.map(n => parseInt(n, 10));
 
-		if (parsedNumbers.some(isNaN) || parsedNumbers.length === 0) {
-			setError('Please enter only valid numbers.');
-			return;
-		}
-		if (parsedNumbers.length < 2 || parsedNumbers.length > 6) {
-			setError('Please enter between 2 and 6 numbers.');
+		if (parsedNumbers.some(isNaN)) {
+			setError('Please enter only valid whole numbers.');
 			return;
 		}
 		if (parsedNumbers.some(n => n < 1 || n > 100)) {
 			setError('Numbers must be between 1 and 100.');
+			return;
+		}
+		if (parsedNumbers.length < 2 || parsedNumbers.length > 6) {
+			setError('Please enter between 2 and 6 numbers.');
 			return;
 		}
 
