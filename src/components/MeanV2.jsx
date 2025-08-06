@@ -700,7 +700,7 @@ const MeanV2 = () => {
 
 	return (
 		<Container
-			text="Mean"
+			text="MeanV2"
 			titleColor="#008545"
 			innerBorderColor="#B3DAC7"
 			innerBackgroundColor="#E8EDF5"
@@ -956,10 +956,10 @@ const MeanV2 = () => {
 							{/* Copy of count number that appears overlayed over the actual count number and moves to the end position of the final sum copy */}
 							{showCountNumberCopy && numbers.length >= 2 && (
 								<div
-									className={`absolute top-[140px] left-1/2 translate-x-[40px] text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
+									className={`absolute top-[140px] left-1/2 text-3xl font-medium text-gray-800 fade-in-animation ${fadeOutAllCopies ? 'fade-out-animation' : ''} ${
 										moveCountNumberCopyToEnd
 											? 'translate-x-[-18px] translate-y-[35px]'
-											: ''
+											: 'translate-x-[40px]'
 									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
 									style={{
 										transition: moveCountNumberCopyToEnd ? 'all 0.5s ease-in-out' : 'none'
