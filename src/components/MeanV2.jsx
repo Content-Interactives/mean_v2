@@ -945,6 +945,9 @@ const MeanV2 = () => {
 									// Calculate the final sum to determine positioning
 									(() => {
 										const finalSum = numbers.reduce((sum, num) => sum + num, 0);
+										if (finalSum >= 10 && finalSum <= 99) {
+											return '-translate-x-[5px]'; // 2px to the right for 2-digit sums
+										}
 										return finalSum >= 100 ? '-translate-x-[-5px]' : '-translate-x-[8px]';
 									})()
 								} ${moveElementsUp ? '-translate-y-[50px]' : ''}`} style={{ transition: moveElementsUp ? 'all 0.5s ease-in-out' : 'none' }}>
@@ -992,6 +995,9 @@ const MeanV2 = () => {
 										// Calculate the final sum to determine positioning
 										(() => {
 											const finalSum = numbers.reduce((sum, num) => sum + num, 0);
+											if (finalSum >= 10 && finalSum <= 99) {
+												return '-translate-x-[5px]';
+											}
 											return finalSum >= 100 ? '-translate-x-[-5px]' : '-translate-x-[8px]';
 										})()
 									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
@@ -1003,16 +1009,30 @@ const MeanV2 = () => {
 								</div>
 							)}
 							{/* Quotient that appears after all copies fade out */}
-							{showQuotient && numbers.length >= 2 && (
-								<div
-									className={`absolute top-[140px] left-1/2 text-3xl font-medium text-[#008545] fade-in-animation ${
-										// Position the quotient where the copies ended up
-										'translate-x-[-13px] translate-y-[35px]'
-									} ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
-								>
-									{Math.round((numbers.reduce((sum, num) => sum + num, 0) / questionMarkCount) * 100) / 100}
-								</div>
-							)}
+							{showQuotient && numbers.length >= 2 && (() => {
+								const quotient = Math.round((numbers.reduce((sum, num) => sum + num, 0) / questionMarkCount) * 100) / 100;
+								const quotientStr = quotient.toString();
+								const decimalIndex = quotientStr.indexOf('.');
+								let decimalPlaces = 0;
+								if (decimalIndex !== -1) {
+									decimalPlaces = quotientStr.length - decimalIndex - 1;
+								}
+
+								let translateXClass = 'translate-x-[-13px]'; // Default for whole numbers
+								if (decimalPlaces === 1) {
+									translateXClass = 'translate-x-[-18px]'; // For 1 decimal place
+								} else if (decimalPlaces === 2) {
+									translateXClass = 'translate-x-[-25px]'; // For 2 decimal places
+								}
+
+								return (
+									<div
+										className={`absolute top-[140px] left-1/2 text-3xl font-medium text-[#008545] fade-in-animation ${translateXClass} translate-y-[35px] ${moveElementsUp ? '-translate-y-[50px]' : ''}`}
+									>
+										{quotient}
+									</div>
+								);
+							})()}
 
 						</div>
 					)}
